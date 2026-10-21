@@ -1,0 +1,201 @@
+{
+  "cpu_threads": 2,
+  "data_quality": {
+    "missing_calendar_hours": 165,
+    "missing_hours_policy": "Omitted hours stay omitted; no zero-count imputation.",
+    "rows": 17379
+  },
+  "excluded_columns": [
+    "cnt",
+    "casual",
+    "registered",
+    "instant",
+    "yr"
+  ],
+  "features": [
+    "dteday",
+    "hr",
+    "mnth",
+    "weekday",
+    "season",
+    "holiday",
+    "workingday",
+    "weathersit",
+    "temp",
+    "atemp",
+    "hum",
+    "windspeed"
+  ],
+  "project_version": "1.0.0",
+  "protocol": {
+    "importance": "Post-evaluation permutation diagnostic: five repeats, max 1000 test rows; not used for selection and not a causal effect.",
+    "predictions": "All regression predictions clipped at zero; counts remain continuous.",
+    "preprocessing": "Imputation, scaling and one-hot encoding fitted within each fit partition.",
+    "refit": "Each family's validation winner refitted on train + validation only.",
+    "selection": "Minimum validation MAE; fixed finite grid; no test-based tuning.",
+    "test": "One final comparison of frozen family configurations on the same held-out dates."
+  },
+  "schema_version": 1,
+  "seed": 42,
+  "selected_family": "hist_gradient_boosting",
+  "source": {
+    "archive_sha256": "b70182d0d0508e9abbb79306ce5c0cec34869000f8220175ac83d11dbe845401",
+    "dataset_url": "https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset",
+    "doi": "10.24432/C5W894",
+    "download_url": "https://archive.ics.uci.edu/static/public/275/bike+sharing+dataset.zip",
+    "kind": "UCI Bike Sharing \u00b7 official hour.csv",
+    "license": "CC BY 4.0",
+    "sha256": "e03de4ee4ef4dc376ac6e04bf829673c6269e8eba5c60fa121640fa2f829504f"
+  },
+  "splits": {
+    "test": {
+      "end": "2012-12-31T23:00:00",
+      "rows": 2888,
+      "start": "2012-09-01T00:00:00",
+      "target_mean": 240.2323407202216
+    },
+    "train": {
+      "end": "2012-04-30T23:00:00",
+      "rows": 11539,
+      "start": "2011-01-01T00:00:00",
+      "target_mean": 154.43998613398043
+    },
+    "validation": {
+      "end": "2012-08-31T23:00:00",
+      "rows": 2952,
+      "start": "2012-05-01T00:00:00",
+      "target_mean": 276.69546070460706
+    }
+  },
+  "task": "Retrospective hourly demand prediction using observed weather",
+  "test_results": [
+    {
+      "family": "mean",
+      "label": "Training mean",
+      "mae": 170.50915266252755,
+      "parameters": {},
+      "r2": -0.07824387210494099,
+      "rmse": 226.0271104248402
+    },
+    {
+      "family": "calendar",
+      "label": "Hour \u00d7 workday mean",
+      "mae": 94.77953487816268,
+      "parameters": {},
+      "r2": 0.5949900376376186,
+      "rmse": 138.5271459639664
+    },
+    {
+      "family": "ridge",
+      "label": "Ridge \u03b1=1",
+      "mae": 97.53038101382155,
+      "parameters": {
+        "alpha": 1.0
+      },
+      "r2": 0.6289959296003855,
+      "rmse": 132.584077391042
+    },
+    {
+      "family": "hist_gradient_boosting",
+      "label": "Gradient boosting \u00b7 15 leaves",
+      "mae": 54.8962903227553,
+      "parameters": {
+        "early_stopping": false,
+        "l2_regularization": 1.0,
+        "learning_rate": 0.08,
+        "max_iter": 200,
+        "max_leaf_nodes": 15,
+        "min_samples_leaf": 30,
+        "random_state": 42
+      },
+      "r2": 0.8616276352533476,
+      "rmse": 80.97048024491393
+    }
+  ],
+  "validation_results": [
+    {
+      "family": "mean",
+      "label": "Training mean",
+      "mae": 192.3169828384522,
+      "parameters": {},
+      "r2": -0.30954076213532655,
+      "rmse": 251.4599950643535
+    },
+    {
+      "family": "calendar",
+      "label": "Hour \u00d7 workday mean",
+      "mae": 127.33709667534404,
+      "parameters": {},
+      "r2": 0.4129173988436652,
+      "rmse": 168.367784404911
+    },
+    {
+      "family": "ridge",
+      "label": "Ridge \u03b1=1",
+      "mae": 109.10711919520838,
+      "parameters": {
+        "alpha": 1.0
+      },
+      "r2": 0.604824127811403,
+      "rmse": 138.13527680684948
+    },
+    {
+      "family": "ridge",
+      "label": "Ridge \u03b1=10",
+      "mae": 109.76124131377699,
+      "parameters": {
+        "alpha": 10.0
+      },
+      "r2": 0.5999313343315908,
+      "rmse": 138.98779368671825
+    },
+    {
+      "family": "ridge",
+      "label": "Ridge \u03b1=100",
+      "mae": 116.00686496910784,
+      "parameters": {
+        "alpha": 100.0
+      },
+      "r2": 0.5539657022635212,
+      "rmse": 146.75520707569265
+    },
+    {
+      "family": "hist_gradient_boosting",
+      "label": "Gradient boosting \u00b7 15 leaves",
+      "mae": 65.80443970776525,
+      "parameters": {
+        "early_stopping": false,
+        "l2_regularization": 1.0,
+        "learning_rate": 0.08,
+        "max_iter": 200,
+        "max_leaf_nodes": 15,
+        "min_samples_leaf": 30,
+        "random_state": 42
+      },
+      "r2": 0.8583874220480724,
+      "rmse": 82.69139270923719
+    },
+    {
+      "family": "hist_gradient_boosting",
+      "label": "Gradient boosting \u00b7 31 leaves",
+      "mae": 68.87692725889279,
+      "parameters": {
+        "early_stopping": false,
+        "l2_regularization": 1.0,
+        "learning_rate": 0.08,
+        "max_iter": 200,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 30,
+        "random_state": 42
+      },
+      "r2": 0.8443118363076972,
+      "rmse": 86.7036119978387
+    }
+  ],
+  "versions": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "python": "3.12.14",
+    "scikit_learn": "1.8.0"
+  }
+}

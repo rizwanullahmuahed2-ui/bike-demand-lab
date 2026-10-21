@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bike-demand-lab"
+version = "1.0.0"
+description = "Reproducible retrospective hourly bike-demand prediction with honest temporal evaluation."
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+license = "MIT"
+authors = [{name = "Rizwanullah Muahed"}]
+dependencies = [
+  "numpy==2.3.5",
+  "pandas==2.2.3",
+  "scipy==1.16.3",
+  "scikit-learn==1.8.0",
+  "joblib==1.5.3",
+  "threadpoolctl==3.6.0",
+  "streamlit==1.51.0",
+  "plotly==6.5.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==8.4.2", "ruff==0.14.7"]
+
+[project.scripts]
+bike-demand = "bike_demand.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP"]
